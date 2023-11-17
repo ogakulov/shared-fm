@@ -2,15 +2,19 @@ name: LLAMA-2-7B Standalone Model Deployment
 description: >-
 This AMP deploys Llama-2-7b model as a CML model endpoint, callable via an API. Model is hosted within CML and requires GPU node with 16GB memory and 4 cores minimum.
 author: Cloudera
-date: '2023-11-15'
-prototype_version: 1.0
+date: "2023-11-15"
 specification_version: 1.0
+prototype_version: 1.0
+
+environment_variables:
+  MODEL_NAME:
+    default: "LLAMA-2-7B CML Deployment"
 
 runtimes: 
   - editor: PBJ Workbench
-  - kernel: Python 3.9
-  - edition: Nvidia GPU
-  - version: 2023.08.2-b8
+    kernel: Python 3.9
+    edition: Nvidia GPU
+    version: 2023.08.2-b8
   
 tasks:
   - type: create_model
