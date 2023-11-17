@@ -1,0 +1,9 @@
+name: Hands on Lab focused on LLMs
+
+entities:
+  - title: LLAMA-2-7B Standalone Model Deployment
+    label: llm-model-deploy
+    short_description: |
+      This AMP deploys LLAMA-2-7B model as a CML API endpoint. Requires a GPU node with 4 vCores and 16 GB memory minimum.
+    long_description: |
+      This AMP deploys LLAMA-2-7B model as a CML API endpoint. Requires a GPU node with 4 vCores and 16 GB memory minimum.
