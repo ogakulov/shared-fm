@@ -5,12 +5,11 @@ author: Cloudera
 date: '2023-11-15'
 specification_version: 1.0
 
-env
-
 runtimes: 
-  - editor: PBJ
+  - editor: PBJ Workbench
   - kernel: Python 3.9
   - edition: Nvidia GPU
+  - version: 2023.08.2-b8
   
 tasks:
 
