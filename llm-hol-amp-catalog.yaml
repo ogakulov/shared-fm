@@ -7,7 +7,7 @@ entries:
       This AMP deploys LLAMA-2-7B model as a CML API endpoint. Requires a GPU node with 4 vCores and 16 GB memory minimum.
     long_description: |
       This AMP deploys LLAMA-2-7B model as a CML API endpoint. Requires a GPU node with 4 vCores and 16 GB memory minimum.
-    image_path: "https://raw.githubusercontent.com/ogakulov/shared-fm/images/human-ml-unsplash.jpg"
+    image_path: "https://raw.githubusercontent.com/ogakulov/shared-fm/main/images/human-ml-unsplash.jpg"
     tags: 
       - LLM
       - LLAMA
