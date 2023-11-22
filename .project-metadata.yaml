@@ -11,7 +11,7 @@ environment_variables:
     description: Name to give to your model in CML. NOT IMPLEMENTED.
 
 runtimes: 
-  - editor: PBJ Workbench
+  - editor: Workbench
     kernel: Python 3.9
     edition: Nvidia GPU
     addons: []
