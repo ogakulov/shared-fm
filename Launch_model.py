@@ -61,6 +61,10 @@ def generate(prompt, max_new_tokens=50, temperature=0, repetition_penalty=1.0, n
                                     top_k=top_k)
   
   output=tokenizer.decode(output_tokens[0], skip_special_tokens=True)
+  
+  # Log the response along with parameters
+  print("Prompt: %s" % (prompt))
+  print("max_new_tokens: %s; temperature: %s; repetition_penalty: %s; num_beams: %s; top_p: %s; top_k: %s" % (max_new_tokens, temperature, repetition_penalty, num_beams, top_p, top_k))
 
   return output
 
