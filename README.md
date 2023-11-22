@@ -1,6 +1,9 @@
 ### Deploy LLM as a model within CML
-This project walks through a deployment and hosting of a Large Languge Model (LLM) within CML. 
+This project walks through a deployment and hosting of a Large Languge Model (LLM) within CML. The project can be cloned into CML directly,  It can be launched as an Applied Machine Learning Prototype (AMP)
 
+### Deploy the model as an AMP
+
+### Deploy the model manually
 Deploy the model by:
 - Navigate to  Model Deployments
 - Click `New Model`
@@ -16,11 +19,14 @@ Deploy the model by:
     }
    ```
 - Pick Runtime
-  - Workbench -- Python 3.9 -- Nvidia GPU -- 2023.08
+  - PBJ Workbench -- Python 3.9 -- Nvidia GPU -- 2023.08
 - Set Resource Profile
   - At least 4CPU / 16MEM
-  - 1 GPU (this will be a v100 in the shared hackathon cluster)
+  - 1 GPU
 - Click `Deploy Model`
 - Wait until it is Deployed
 
 Test the Model
+
+Note on compute instances:
+- g4dn.4xlarge is the recommended GPU type on AWS. It has 8 vCPUs and accounts for any overhead on top of 4 vCPUs that the model deployment needs.
