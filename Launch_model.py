@@ -2,6 +2,8 @@ import bitsandbytes as bnb
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 import os
 import torch
+import cml.metrics_v1 as metrics
+import cml.models_v1 as models
 
 # Quantization
 # Here quantization is setup to use "Normal Float 4" data type for weights. 
@@ -65,9 +67,11 @@ def generate(prompt, max_new_tokens=50, temperature=0, repetition_penalty=1.0, n
   # Log the response along with parameters
   print("Prompt: %s" % (prompt))
   print("max_new_tokens: %s; temperature: %s; repetition_penalty: %s; num_beams: %s; top_p: %s; top_k: %s" % (max_new_tokens, temperature, repetition_penalty, num_beams, top_p, top_k))
-
+  print("Full Response: %s" % (output))
+  
   return output
 
+@models.cml_model(metrics=True)
 def api_wrapper(args):
   """
   Process an incoming API request and return a JSON output.
@@ -85,6 +89,10 @@ def api_wrapper(args):
   repetition_penalty = float(opt_args_value(args, "repetition_penalty", 1.0))
   num_beams = int(opt_args_value(args, "num_beams", 1))
   
+  metrics.track_metric("prompt", prompt)
+  
   response = generate(prompt, max_new_tokens, temperature, repetition_penalty, num_beams, top_p, top_k)
+  
+  metrics.track_metric("response", response)
 
   return response
