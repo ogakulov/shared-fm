@@ -1,6 +1,7 @@
 import bitsandbytes as bnb
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 import os
+import time
 import torch
 import cml.metrics_v1 as metrics
 import cml.models_v1 as models
@@ -53,6 +54,7 @@ def generate(prompt, max_new_tokens=50, temperature=0, repetition_penalty=1.0, n
   top_k              - numbe of highest-probability tokens to keep (i.e. only top_k "best" tokens will be considered for response)
   """
   batch = tokenizer(prompt, return_tensors='pt')
+  
   with torch.cuda.amp.autocast():
     output_tokens = model.generate(**batch,
                                     max_new_tokens=max_new_tokens,
@@ -76,11 +78,12 @@ def api_wrapper(args):
   """
   Process an incoming API request and return a JSON output.
   """
+  start = time.time()
+  
   # Pick up args from model api
   prompt = args["prompt"]
   
   # Pick up or set defaults for inference options
-  # TODO: Set min and max for each of these
   # TODO: More intelligent control of max_new_tokens
   temperature = float(opt_args_value(args, "temperature", 0))
   max_new_tokens = float(opt_args_value(args, "max_new_tokens", 50))
@@ -89,10 +92,17 @@ def api_wrapper(args):
   repetition_penalty = float(opt_args_value(args, "repetition_penalty", 1.0))
   num_beams = int(opt_args_value(args, "num_beams", 1))
   
-  metrics.track_metric("prompt", prompt)
   
+  # Generate response from the LLM
   response = generate(prompt, max_new_tokens, temperature, repetition_penalty, num_beams, top_p, top_k)
   
+  # Calculate elapsed time
+  response_time = time.time() - start
+  
+  # Track model outputs over time
+  metrics.track_metric("prompt", prompt)
   metrics.track_metric("response", response)
+  metrics.track_metric("response_time_s", response_time)
 
-  return response
+  
+  return {"response": response, "response_time_s": round(response_time,1)}
